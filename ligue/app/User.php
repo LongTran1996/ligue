@@ -32,6 +32,22 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+     public function hasAdminRole()
+    {
+        return $this->roles()->pluck('name')->contains("admin");
+    }
+
+    public function hasTeamAdminRole()
+    {
+      return $this->roles()->pluck('name')->contains("team_admin");
+    }
+        public function hasRegisteredRole()
+    {
+      return $this->roles()->pluck('name')->contains("registered");
+    }
+
+
+
     public function player() {
         return $this->belongsTo(Player::class);
     }
