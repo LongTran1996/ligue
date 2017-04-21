@@ -16,6 +16,11 @@ class CreateStatsTable extends Migration
         Schema::create('stats', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('name');
+            $table->integer('match_id');
+            $table->integer('time');
+            $table->integer('period');
+
         });
     }
 
