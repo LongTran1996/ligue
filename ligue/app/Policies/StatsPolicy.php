@@ -34,7 +34,9 @@ class StatsPolicy
         if ($user->hasAdminRole()) {
             return true;
         }
+        else {
         return false;
+    }
     }
 
     /**
@@ -49,7 +51,9 @@ class StatsPolicy
         if ($user->hasAdminRole()) {
             return true;
         }
+        else {
         return false;
+    }
     }
 
     /**
@@ -64,6 +68,8 @@ class StatsPolicy
      if ($user->hasAdminRole()) {
             return true;
         }
+        else {
         return false;
+    }
     }
 }
