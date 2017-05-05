@@ -36,7 +36,9 @@ class SeasonPolicy
         if ($user->hasAdminRole()) {
             return true;
         }
+        else {
         return false;
+    }
     }
 
     /**
@@ -51,7 +53,9 @@ class SeasonPolicy
         if ($user->hasAdminRole()) {
             return true;
         }
+        else {
         return false;
+    }
     }
 
     /**
@@ -66,6 +70,8 @@ class SeasonPolicy
      if ($user->hasAdminRole()) {
             return true;
         }
+        else {
         return false;
+    }
     }
 }

@@ -1,20 +1,20 @@
-f<?php
+<?php
 
 namespace App\Policies;
 
 use App\User;
-use App\Player;
+use App\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PlayerPolicy
+class TeamPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the player.
+     * Determine whether the user can view the team.
      *
      * @param  \App\User  $user
-     * @param  \App\Player  $player
+     * @param  \App\Team  $team
      * @return mixed
      */
     public function view(User $user, Player $player)
@@ -31,7 +31,7 @@ class PlayerPolicy
     public function create(User $user)
     {
         //
-        if ($user->hasAdminRole() or $user->hasTeamAdminRole()){
+        if ($user->hasAdminRole()){
             return true
         }
         else {
@@ -70,8 +70,7 @@ class PlayerPolicy
     public function delete(User $user, Player $player)
     {
         
-        if ($user->hasAdminRole() or ($user->hasTeamAdminRole()
-         and  $player->teams()->pluck('admin_id')->contains($user->id())) ){
+        if ($user->hasAdminRole()) {
             
             return true
         }
@@ -79,4 +78,6 @@ class PlayerPolicy
             return false;
         }
     }
+}
+
 }

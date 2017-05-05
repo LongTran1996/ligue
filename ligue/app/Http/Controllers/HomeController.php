@@ -4,34 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PlayerController extends Controller
+class HomeController extends Controller
 {
-    //
-    	public function index() {
+    	public function __construct()
+	{
+	
 
-    $players = Player::All()
-    ->get();
-    	return view('players', compact('players'));
 	}
+
+    public function index() 
+    {
+
+
+    	return view('welcome');
+    }
+
+
 
 	public function create()
 	{
-		return view('players.create');
+		return view('leagues.create');
 	}
 
 
-	public function edit(player $player) {
+	public function edit(league $league) {
 
 			
 		//return ($post->id);
-		return view('players.edit', compact('player'));
+		return view('leagues.edit', compact('league'));
 
 	}
 
 	   public function update($id, Request $request)
     {		
-    	$player = Player::all()->find($id);;
-    	$player->name = $request['name'];
+    	$league = League::all()->find($id);
+
+    	$league->name = $request['name'];
     	$league->category = $request['category'];
 
 
@@ -65,12 +73,13 @@ class PlayerController extends Controller
 		// 		'category' => 'required'
 		// 	]);
 
-		//$league = new League(request(['name', 'category']));
-	    $league = new League;
-		$league->name = request(['name']);
-		$league->category = request(['category');
+		// //$league = new League(request(['name', 'category']));
+		// $league = new League;
+		// $league->name = 
+		// $league->category = request(['category')
 
-		return redirect('/');
+		// return redirect('/');
 
 	}
+
 }
