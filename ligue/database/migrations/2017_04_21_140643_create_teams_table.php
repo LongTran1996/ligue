@@ -17,6 +17,7 @@ class CreateTeamsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
+            $table->string('localisation');
             $table->integer('admin_id');
             $table->integer('league_id');
         });
