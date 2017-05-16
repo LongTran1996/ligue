@@ -19,6 +19,7 @@ class CreateSeasonsTable extends Migration
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->integer('league_id');
+            $table->timestamps();
         });
     }
 

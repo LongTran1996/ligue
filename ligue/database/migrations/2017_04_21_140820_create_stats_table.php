@@ -20,7 +20,6 @@ class CreateStatsTable extends Migration
             $table->integer('match_id');
             $table->integer('time');
             $table->integer('period');
-
         });
     }
 
