@@ -11,6 +11,13 @@ class LeagueSeasonsTeamTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\League::class, 10)->create()->each(function ($a) {
+        	for($c = 0; $c < 5; $c++) {
+        		$a->seasons()->save(factory(App\Season::class)->make());
+        	}
+        	for($c = 0; $c < 10; $c++) {
+        		$a->teams()->save(factory(App\Team::class)->make());
+        	}
+        });
     }
 }

@@ -11,6 +11,7 @@ class StatTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('stat_types')->insert(['name' => 'Goal']);
+        DB::table('stat_types')->insert(['name' => 'Assist']);
     }
 }

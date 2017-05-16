@@ -10,6 +10,7 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+use Carbon\Carbon;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
@@ -26,6 +27,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Team::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
+        'localisation' => $faker->word,
+        'admin_id' => $faker->numberBetween(2,800),
     ];
 });
 
@@ -38,17 +41,18 @@ $factory->define(App\League::class, function (Faker\Generator $faker) {
 
 
 $factory->define(App\Season::class, function (Faker\Generator $faker) {
-    static $start_date;
+    $start_date;
 
     return [
         'name' => $faker->word,
-        'start_date' => $start_date = Carbon::createFromTimestamp($faker->dateTimeBetween($startDate = '+6 week', $endDate = '+52 week')->getTimeStamp())
+        'start_date' => $start_date = Carbon::createFromTimestamp($faker->dateTimeBetween($startDate = '+6 week', $endDate = '+52 week')->getTimeStamp()),
         'end_date' => Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addDays(180),
     ];
 });
 
 $factory->define(App\Match::class, function (Faker\Generator $faker) {
-    static $local;
+    $local;
+    
     return [
         'final_score_local'=> $local = $faker->randomDigit,
         'final_score_visitor'=> $faker->randomDigitNot($local),
