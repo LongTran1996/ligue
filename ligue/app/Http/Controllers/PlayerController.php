@@ -9,8 +9,13 @@ class PlayerController extends Controller
     //
     	public function index() {
 
+    $league = League::All()->first()->get();	
+    $teams = $league->teams();	
+    
     $players = Player::All()
     ->get();
+   	
+
     	return view('players', compact('players'));
 	}
 
