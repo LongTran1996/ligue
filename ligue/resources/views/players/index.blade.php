@@ -22,16 +22,11 @@
             
    
         <tr>
-        <td>$player->Name</td>
-         @foreach($players->stats() as $stats)
-         @if($stats->type) 
-         
-         @endif
-
-        <td></td>
-        @endforeach
+        <td><a href="/players/{{$player->id}}">{{ $player->Name}}</a></td>
+        <td>{{ $player->Goals }}</td>
+        <td>{{ $player->Losses }}</td>
         </tr>
-
+        @endforeach
         </table>
       
           <nav class="blog-pagination">
@@ -39,7 +34,18 @@
             <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
           </nav>
 
-        </div><!-- /.blog-main -->
+        </div><!-- /.blog-main --> 
+        <div class="col-sm-4 blog-main">
+        @foreach($leagues as $league) {
+        <ul><a href="/players/{{$league->id}}">League {{$league->name}}</a>
+        @foreach($leagues->seasons as $season){
+        <li><a href="/players/{{$league->id}}/{{$season->id}}">Season {{$season->name}}
+        </li>
+        }
+        </ul>
+        }
+        @endforeach
+        </div>
 
 
 @endsection
