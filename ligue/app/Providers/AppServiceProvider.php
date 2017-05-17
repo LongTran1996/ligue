@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        $leagues = League::All()->get();
+        View::share('leagues', $leagues);
     }
 
     /**

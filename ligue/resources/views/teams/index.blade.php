@@ -10,10 +10,10 @@
            	 </tr>	
 
           @foreach ($teams as $team)
-            <td>$team->name</td>
-            <td>$team->goals</td>
-            <td>$team->wins</td>
-            <td>$team->losses</td>
+            <td>{{ $team->name }}</td>
+            <td>{{ $team->goals }}</td>
+            <td>{{ $team->wins }}</td>
+            <td>{{ $team->losses }}</td>
 
            </table>
           @endforeach

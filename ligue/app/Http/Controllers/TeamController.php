@@ -46,13 +46,6 @@ class TeamController extends Controller
 		$team->goals += $match->final_score_local
 
 		}
-/*		if ($match->winning_team == $team->id ) {
-		$match->wins += 1
-
-		}
-		if ($match->loca == $team->id) {
-
-		}*/
 	}
 
 }
@@ -61,4 +54,20 @@ class TeamController extends Controller
 
     
 	}
+		public function team(team $team, $season_id) { 
+			$league = $team->league();
+			$season = $
+   			foreach($stats as $stat){
+   				$type = $stat->type();
+   				if ($type->id == 1 ){
+   				$player->goals += 1;    				
+   			}
+   				if ($type->id == 2) {
+   				$player->assists += 1;
+   				}
+   			}
+		return view('teams.team', compact('team'));
+
+	}
+
 }
