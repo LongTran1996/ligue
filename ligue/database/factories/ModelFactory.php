@@ -65,3 +65,9 @@ $factory->define(App\Stats::class, function (Faker\Generator $faker) {
         'period'=> $faker->numberBetween(1, 3),
     ];
 });
+
+$factory->define(App\Player::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+    ];
+});
