@@ -51,11 +51,15 @@ $factory->define(App\Season::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Match::class, function (Faker\Generator $faker) {
-    $local;
+    $local = $faker->numberBetween(0, 4);
+    $visitor = $faker->numberBetween(0, 4);
+    while($visitor == $local) {
+        $visitor = $faker->numberBetween(0, 4);
+    }
     
     return [
-        'final_score_local'=> $local = $faker->randomDigit,
-        'final_score_visitor'=> $faker->randomDigitNot($local),
+        'final_score_local'=> $local,
+        'final_score_visitor'=> $visitor,
     ];
 });
 

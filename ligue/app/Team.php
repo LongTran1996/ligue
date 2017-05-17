@@ -16,4 +16,9 @@ class Team extends Model
     	  return $this->belongsTo(League::class);
     }
 
+    public function matchs() {
+    	$matchs = Match::where('visitor_team', '=', $this->id)->orWhere('local_team', '=', $this->id);
+    	return $matchs;
+    }
+
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use App\Match;
 
 class LSTMPS_TableSeeder extends Seeder
 {
@@ -16,11 +17,14 @@ class LSTMPS_TableSeeder extends Seeder
         $nbt = 5;
         // Nombre de player par team
         $nbp = 15;
-        // Nombre de season
+        // Nombre de season par league
         $nbs = 5;
+        // Nombre de league
+        $nbl = 10;
+        // Nombre de saison pour stats par league
+        $nbss = 2;
 
-        
-        factory(App\League::class, 10)->create()->each(function ($a) use ($nbt, $nbp, $nbs) {
+        factory(App\League::class, $nbl)->create()->each(function ($a) use ($nbt, $nbp, $nbs) {
 
         	// Seasons
         	for($i = 0; $i < $nbs; $i++) {
@@ -69,13 +73,71 @@ class LSTMPS_TableSeeder extends Seeder
 				        		$match->winning_team = (($match->final_score_local > $match->final_score_visitor) ? $match->local_team : $match->visitor_team);
 
 				        		$c->matchs()->save($match);
+
+                                // Stats
+                                $this->CreateStats($match);
 			        		}
 		        		}
 					}
 				}
         	});
-
-        	// Stats
         });
+    }
+
+    public function CreateStats(Match $match) {
+        $lTeam = $match->local;
+        $vTeam = $match->visitor;
+
+        // Stats pour l'équipe locale
+        for($i = 0; $i < $match->final_score_local; $i++) {
+            $nbAssist = rand(0,1);
+
+            // Créer les stats de but
+            $but = factory(App\Stats::class)->make();
+            $but->player_id = $lTeam->players->random()->id;
+            $but->stat_type_id = 1;
+            $match->stats()->save($but);
+
+            // Créer les stats d'assist
+            for($j = 0; $j < $nbAssist; $j++) {
+                $aPlayerId = $lTeam->players->random()->id;
+                while($aPlayerId == $but->player_id) {
+                    $aPlayerId = $lTeam->players->random()->id;
+                }
+
+                $assist = new App\Stats;
+                $assist->stat_type_id = 2;
+                $assist->player_id = $aPlayerId;
+                $assist->time = $but->time;
+                $assist->period = $but->period;
+                $match->stats()->save($assist);
+            }
+        }
+
+        // Stats pour l'équipe visiteure
+        for($i = 0; $i < $match->final_score_visitor; $i++) {
+            $nbAssist = rand(0,1);
+
+            // Créer les stats de but
+            $but = factory(App\Stats::class)->make();
+            $but->player_id = $vTeam->players->random()->id;
+            $but->stat_type_id = 1;
+            $match->stats()->save($but);
+
+            // Créer les stats d'assist
+            for($j = 0; $j < $nbAssist; $j++) {
+                $aPlayerId = $vTeam->players->random()->id;
+                while($aPlayerId == $but->player_id) {
+                    $aPlayerId = $vTeam->players->random()->id;
+                }
+
+                $assist = new App\Stats;
+                $assist->stat_type_id = 2;
+                $assist->player_id = $aPlayerId;
+                $assist->time = $but->time;
+                $assist->period = $but->period;
+                $match->stats()->save($assist);
+            }
+        }
     }
 }
