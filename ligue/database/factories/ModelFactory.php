@@ -45,8 +45,8 @@ $factory->define(App\Season::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->word,
-        'start_date' => $start_date = Carbon::createFromTimestamp($faker->dateTimeBetween($startDate = '+6 week', $endDate = '+52 week')->getTimeStamp()),
-        'end_date' => Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addDays(180),
+        /*'start_date' => $start_date = Carbon::createFromTimestamp($faker->dateTimeBetween($startDate = '+6 week', $endDate = '+52 week')->getTimeStamp()),
+        'end_date' => Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addDays(180),*/
     ];
 });
 

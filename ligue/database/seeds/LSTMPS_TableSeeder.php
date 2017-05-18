@@ -23,12 +23,23 @@ class LSTMPS_TableSeeder extends Seeder
         $nbl = 10;
         // Nombre de saison pour stats par league
         $nbss = 2;
+        // Nombre de jours dans une saison
+        $nbjs = 270;
 
-        factory(App\League::class, $nbl)->create()->each(function ($a) use ($nbt, $nbp, $nbs) {
+        factory(App\League::class, $nbl)->create()->each(function ($a) use ($nbt, $nbp, $nbs, $nbjs) {
 
+
+            $startDate = Carbon::createFromDate(2012, 9, 1);
         	// Seasons
         	for($i = 0; $i < $nbs; $i++) {
-        		$a->seasons()->save(factory(App\Season::class)->make());
+                $endDate =  Carbon::createFromFormat('Y-m-d H:i:s', $startDate)->addDays($nbjs);
+
+                $season = factory(App\Season::class)->make();
+                $season->start_date = $startDate->toDateTimeString();
+                $season->end_date = $endDate->toDateTimeString();
+
+        		$a->seasons()->save($season);
+                $startDate->addYears(1);
         	}
 
         	// Teams
