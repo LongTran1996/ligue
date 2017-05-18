@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Match;
 use App\League;
+use App\Season;
+use App\Team;
 
 class MatchController extends Controller
 {
@@ -19,9 +21,24 @@ class MatchController extends Controller
 		return view('matchs.index', compact('leagues'));
 	}
 
-	public function teamShow($id) {
-		$team = \App\Team::find($id);
-		return view('matchs.teamShow', compact('matchs'));
+	public function show(Match $match)
+	{
+		return view('matchs.show', compact('match'));
+	}
+
+	public function teamShow(Team $team) 
+	{
+		return view('matchs.teamShow', compact('team'));
+	}
+
+	public function seasonShow(Season $season)
+	{
+		return view('matchs.seasonShow', compact('season'));
+	}
+
+	public function leagueShow(League $league) 
+	{
+		return view('matchs.leagueShow', compact('league'));
 	}
 
 	public function create()
@@ -60,11 +77,6 @@ class MatchController extends Controller
 		Match::find($id)->delete();
 		return redirect()->route('matchs.index');
 	}
-	public function show(Match $match)
-	{
-		return view('matchs.show', compact('matchs'));
-	}
-
 
 	public function store()
 	{
