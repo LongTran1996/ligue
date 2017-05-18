@@ -13,9 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        view()->composer('layouts.nav', function ($view) {
+            $view->with('leagues', \App\League::all());
 
-        $leagues = League::All()->get();
-        View::share('leagues', $leagues);
+        });
     }
 
     /**
