@@ -28,7 +28,6 @@
 					<div class="col-md-4">{{ $season->name }}</div>
 					<div class="col-md-3">{{ Carbon\Carbon::parse($season->start_date)->format('Y-m-d') }}</div>
 					<div class="col-md-3">{{ Carbon\Carbon::parse($season->end_date)->format('Y-m-d') }}</div>
-					<div class="col-md-2"><a href="/matchs/season/{{ $season->id }}">See more</a></div>
 				</div>
 				<div class="container pad-left collapse" id="{{ $season->id }}">
 					<div class="pad-left row top-row">

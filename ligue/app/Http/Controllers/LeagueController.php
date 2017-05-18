@@ -10,93 +10,58 @@ use App\Team;
 
 class LeagueController extends Controller
 {
-    	public function __construct()
+    public function __construct()
 	{
 	
-
 	}
 
     public function leagues()
     {
-
-      $leagues = League::All()
-    ->get();
+      	$leagues = League::All()->get();
     	return view('leagues.leagues', compact('leagues'));
     }
 
+	public function players($league_id, $season_id = null) {
+		$players = collect();
 
-
-
-
-
-
-
-
-
-
-
-	 public function players($league_id, $season_id = null) {
-	 	$players = collect();
 		if ($season_id != null) {
 			$season = Season::find($season_id);
 			$league = $season->league;	
-
-	
-		}
-
-		else {
+		} else {
 			$league = League::find($league_id);
-
 		}
 
-			$teams = $league->teams;
-			//$teams = Team::All()->where('league_id', $league_id);
+		$teams = $league->teams;
+		//$teams = Team::All()->where('league_id', $league_id);
     		
-
 		foreach ($teams as $team) {
-
-
-				
 			foreach($team->players as $player) {
 			//	if (!($players.contains('id',$player->id)))
-		
-					
-					$stats = $player->stats;
-					
-
-				
-						if ($season_id != null) {
-
-							foreach($stats as $stat){
-						 if ($stat->match->season_id == $season_id) {
-						 		$type = $stat->type;
-						if ($type->id == 1 ){
-							$player->goals += 1;    				
+				$stats = $player->stats;
+				if ($season_id != null) {	
+					foreach($stats as $stat){
+						if ($stat->match->season_id == $season_id) {
+						 	$type = $stat->type;
+							if ($type->id == 1 ){
+								$player->goals += 1;    				
+							}
+							if ($type->id == 2) {
+								$player->assists += 1;
+							}
+							if ($player->goals == 0) {
+								$player->goals = 0; 
+							}
+							if ($player->assists == 0) {
+								$player->assists = 0; 
+							}
+							if(!$players->contains($player)) {
+								$players->push($player);
+							}
 						}
-						if ($type->id == 2) {
-							$player->assists += 1;
-						}
-					
-
-					if ($player->goals == 0) {
-						$player->goals = 0; 
 					}
-					if ($player->assists == 0) {
-						$player->assists = 0; 
-					}
-					if(!$players->contains($player)) {
-					$players->push($player);
 				}
-				}
-							
-						}
-						
-
-
-						}
-						else {
-								foreach($stats as $stat){
-
+				else {
+					foreach($stats as $stat){
 						$type = $stat->type;
 						if ($type->id == 1 ){
 							$player->goals += 1;    				
@@ -104,76 +69,57 @@ class LeagueController extends Controller
 						if ($type->id == 2) {
 							$player->assists += 1;
 						}
-					
-
-					if ($player->goals == 0) {
-						$player->goals = 0; 
+						if ($player->goals == 0) {
+							$player->goals = 0; 
+						}
+						if ($player->assists == 0) {
+							$player->assists = 0; 
+						}
+						if(!$players->contains($player)) {
+							$players->push($player);
+						}
 					}
-					if ($player->assists == 0) {
-						$player->assists = 0; 
-					}
-					if(!$players->contains($player)) {
-					$players->push($player);
 				}
-				}
-			//	}
-			}
+			}		
 		}
-	}
-
-		
 		$players = $players->sortByDesc('goals');
-			$players = $players->All();
+		$players = $players->All();
 		$leagues = League::All();
 
 		return view('players.index', compact('players', 'leagues'));
     }
-
-
-
 
 	public function create()
 	{
 		return view('leagues.create');
 	}
 
-
 	public function edit(league $league) {
-
-			
-		//return ($post->id);
 		return view('leagues.edit', compact('league'));
-
 	}
 
-	   public function update($id, Request $request)
+	public function update($id, Request $request)
     {		
     	$league = League::all()->find($id);
 
     	$league->name = $request['name'];
     	$league->category = $request['category'];
 
-
     	$league->save();
-        //
   		
 		return redirect()->route('leagues');
 	}
 
-
-    	public function destroy($id)
+    public function destroy($id)
 	{
-			$league = League::find($id)->delete();
-		 return redirect()->route('leagues');
-
+		$league = League::find($id)->delete();
+		return redirect()->route('leagues');
 	}
-		public function show(league $league)
+	
+	public function show(league $league)
 	{
 		return view('leagues.show', compact('league'));
-	
-
 	}
-
 
 	public function store()
 	{
@@ -288,7 +234,7 @@ class LeagueController extends Controller
 }
 }
 		$leagues = League::All();
-
+		$teams = $teams->sortByDesc('wins');
     	return view('teams.index', compact('teams', 'leagues'));
 
     }

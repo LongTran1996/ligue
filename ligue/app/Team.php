@@ -58,14 +58,14 @@ class Team extends Model
     	return $allStats;
     }
 
-    private function verifySeason($id) {
+    public function verifySeason($id) {
     	if($this->league->seasons->pluck('id')->contains($id)) {
     		return true;
     	}
     	return false;
     }
 
-    private function seasonWins($id) {
+    public function seasonWins($id) {
     	$seasonWins = new Collection();
 
     	if($this->verifySeason($id)) {
@@ -78,7 +78,7 @@ class Team extends Model
     	return $seasonWins;
     }
 
-    private function seasonDefeats($id) {
+    public function seasonDefeats($id) {
 		$seasonDefeats = new Collection();
 
     	if($this->verifySeason($id)) {
@@ -91,7 +91,7 @@ class Team extends Model
     	return $seasonDefeats;
     }
 
-    private function seasonGoals($id) {
+    public function seasonGoals($id) {
     	$seasonGoals = new Collection();
 
     	if($this->verifySeason($id)) {
@@ -104,7 +104,7 @@ class Team extends Model
     	return $seasonGoals;
     }
 
-    private function seasonAssists($id) {
+    public function seasonAssists($id) {
     	$seasonAssists = new Collection();
 
     	if($this->verifySeason($id)) {
@@ -117,7 +117,7 @@ class Team extends Model
     	return $seasonAssists;
     }
 
-    private function allWins() {
+    public function allWins() {
     	$wins = new Collection();
 
     	foreach($this->matchs()->get() as $match) {
@@ -128,7 +128,7 @@ class Team extends Model
     	return $wins;
     }
 
-    private function allDefeats() {
+    public function allDefeats() {
     	$defeats = new Collection();
 
     	foreach($this->matchs()->get() as $match) {
@@ -139,7 +139,7 @@ class Team extends Model
     	return $defeats;
     }
 
-    private function allGoals() {
+    public function allGoals() {
     	$goals = new Collection();
 
     	foreach($this->matchs()->get() as $match) {
@@ -154,7 +154,7 @@ class Team extends Model
     	return $goals;
     }
 
-    private function allAssists() {
+    public function allAssists() {
     	$assists = new Collection();
 
     	foreach($this->matchs()->get() as $match) {
