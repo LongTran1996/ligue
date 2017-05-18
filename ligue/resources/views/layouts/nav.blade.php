@@ -19,13 +19,22 @@
       <li><a href="/seasons">Seasons</a></li>
       <li><a href="/matchs">Matchs</a></li>
        
-       <!-- <li><a href="/players">Players</a></li> -->
               <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stats <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          @foreach ($leagues as $league) {
-            <li><a href="/players/{{$league->id}}">League {{$league->name}}</a></li>
-          }
+          @foreach ($leagues as $league) 
+            <li><a href="/matchs/{{$league->id}}">League {{ $league->name}}</a></li>
+          
+          @endforeach
+          </ul>
+        </li>
+
+              <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Players <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          @foreach ($leagues as $league) 
+            <li><a href="/leagues/players/{{$league->id}}">League {{ $league->name}}</a></li>
+          
           @endforeach
           </ul>
         </li>

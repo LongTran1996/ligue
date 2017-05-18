@@ -62,6 +62,8 @@ Route::get('/leagues/{league}', 'LeagueController@show');
 // Présentation de toutes les leagues
 Route::get('/leagues', 'LeagueController@index');
 
+Route::get('/leagues/players/{league_id}/{season_id?}', 'LeagueController@players');
+
 // Page de création d'une league
 // Restreint aux rôles : admin
 Route::get('/leagues/create', 'LeagueController@create')->middleware('admin');
