@@ -77,7 +77,7 @@ class LeagueController extends Controller
 		//$league = new League(request(['name', 'category']));
 	    $league = new League;
 		$league->name = request(['name']);
-		$league->category = request(['category');
+		$league->category = request(['category']);
 
 		return redirect('/');
 

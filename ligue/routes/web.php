@@ -151,3 +151,35 @@ Route::post('/teams/edit', 'TeamController@update')->middleware('teamAdmin');
 // Efface une équipe
 // Restreint aux rôles : admin
 Route::get('/teams/delete/{team}', 'TeamController@delete')->middleware('admin');
+
+// ************************************ Routes des players **************************************
+
+// Présentation d'un player
+Route::get('/players/{player}', 'PlayerController@show');
+
+// Présentation de tous les players
+Route::get('/players', 'PlayerController@index');
+
+// Page de création d'un player
+// Restreint aux rôles : admin
+Route::get('/players/create', 'PlayerController@create')->middleware('admin');
+
+// Sauvegarde d'un player
+// Restreint aux rôles : admin
+Route::post('/players', 'PlayerController@store')->middleware('admin');
+
+// Modifier tous les players
+// Restreint aux rôles : admin
+Route::get('/players/edit', 'PlayerController@allEdit')->middleware('admin');
+
+// Modifier un player
+// Restreint aux rôles : admin
+Route::get('/players/edit/{player}', 'PlayerController@edit')->middleware('admin');
+
+// Sauvegarder des modifications d'un player
+// Restreint aux rôles : admin
+Route::post('/players/edit', 'PlayerController@update')->middleware('admin');
+
+// Efface un player
+// Restreint aux rôles : admin
+Route::get('/players/delete/{player}', 'PlayerController@delete')->middleware('admin');
