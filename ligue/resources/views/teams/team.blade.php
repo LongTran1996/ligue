@@ -14,8 +14,21 @@
         <td >{{ $team->wins }}</td>
         <td>{{ $team->losses }}</td>
         </tr>
-    
- 
+      
+
+   
+        </table>
+
+            <table border="1">
+
+          <tr><th>Players</th></tr>
+          @foreach ($team->players as $player)
+        <tr>
+        <td><a href="/players/{{$player->id}}">{{$player->name}}</a></td>
+        </tr>
+        @endforeach
+
+   
         </table>
         </div>
               <div class="col-sm-7 blog-main">

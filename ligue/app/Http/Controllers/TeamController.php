@@ -64,7 +64,7 @@ class TeamController extends Controller
 		public function show(team $team, $season_id = null) { 
 			if ($season_id == null){
 			$date = Carbon::now();
-			dd($team);
+	
 			$league = $team->league;
 			$season = $league->seasons->where('end_date', '=>', $date)->First();
 			if ($season == null) {

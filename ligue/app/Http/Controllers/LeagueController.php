@@ -64,15 +64,19 @@ class LeagueController extends Controller
 					$stats = $player->stats;
 					
 
-					foreach($stats as $stat){
-						$type = $stat->type;
+				
+						if ($season_id != null) {
+
+							foreach($stats as $stat){
+						 if ($stat->match->season_id == $season_id) {
+						 		$type = $stat->type;
 						if ($type->id == 1 ){
 							$player->goals += 1;    				
 						}
 						if ($type->id == 2) {
 							$player->assists += 1;
 						}
-					}
+					
 
 					if ($player->goals == 0) {
 						$player->goals = 0; 
@@ -80,11 +84,42 @@ class LeagueController extends Controller
 					if ($player->assists == 0) {
 						$player->assists = 0; 
 					}
+					if(!$players->contains($player)) {
 					$players->push($player);
+				}
+				}
+							
+						}
+						
 
+
+						}
+						else {
+								foreach($stats as $stat){
+
+						$type = $stat->type;
+						if ($type->id == 1 ){
+							$player->goals += 1;    				
+						}
+						if ($type->id == 2) {
+							$player->assists += 1;
+						}
+					
+
+					if ($player->goals == 0) {
+						$player->goals = 0; 
+					}
+					if ($player->assists == 0) {
+						$player->assists = 0; 
+					}
+					if(!$players->contains($player)) {
+					$players->push($player);
+				}
+				}
 			//	}
 			}
 		}
+	}
 
 		
 		$players = $players->sortByDesc('goals');
