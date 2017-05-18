@@ -106,7 +106,7 @@ class LSTMPS_TableSeeder extends Seeder
             // Créer les stats de but
             $but = factory(App\Stats::class)->make();
             $but->player_id = $lTeam->players->random()->id;
-            $but->stat_type_id = 1;
+            $but->stat_types_id = 1;
             $match->stats()->save($but);
 
             // Créer les stats d'assist
@@ -117,7 +117,7 @@ class LSTMPS_TableSeeder extends Seeder
                 }
 
                 $assist = new App\Stats;
-                $assist->stat_type_id = 2;
+                $assist->stat_types_id = 2;
                 $assist->player_id = $aPlayerId;
                 $assist->time = $but->time;
                 $assist->period = $but->period;
@@ -132,7 +132,7 @@ class LSTMPS_TableSeeder extends Seeder
             // Créer les stats de but
             $but = factory(App\Stats::class)->make();
             $but->player_id = $vTeam->players->random()->id;
-            $but->stat_type_id = 1;
+            $but->stat_types_id = 1;
             $match->stats()->save($but);
 
             // Créer les stats d'assist
@@ -143,7 +143,7 @@ class LSTMPS_TableSeeder extends Seeder
                 }
 
                 $assist = new App\Stats;
-                $assist->stat_type_id = 2;
+                $assist->stat_types_id = 2;
                 $assist->player_id = $aPlayerId;
                 $assist->time = $but->time;
                 $assist->period = $but->period;

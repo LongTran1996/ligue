@@ -17,7 +17,7 @@ class CreateStatsTable extends Migration
             $table->increments('id');
             $table->integer('match_id');
             $table->integer('player_id');
-            $table->integer('stat_type_id');
+            $table->integer('stat_types_id');
             $table->integer('time');
             $table->integer('period');
             $table->timestamps();

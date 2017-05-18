@@ -25,6 +25,12 @@ Route::get('/matchs', 'MatchController@index');
 // Présentation de tous les matchs d'une équipe
 Route::get('/matchs/team/{team}', 'MatchController@teamShow');
 
+// Présentation de tous les matchs d'une league
+Route::get('/matchs/league/{league}', 'MatchController@leagueShow');
+
+// Présentation de tous les matchs d'une saison
+Route::get('/matchs/season/{season}', 'MatchController@seasonShow');
+
 // Page de création d'un match
 // Restreint aux rôles : admin
 Route::get('/matchs/create', 'MatchController@create')->middleware('admin');

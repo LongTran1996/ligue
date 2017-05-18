@@ -13,7 +13,7 @@ class CreateStattypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('stat_types', function (Blueprint $table) {
+        Schema::create('stat__types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
         });
@@ -26,6 +26,6 @@ class CreateStattypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stat_types');
+        Schema::dropIfExists('stat__types');
     }
 }

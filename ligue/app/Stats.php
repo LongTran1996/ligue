@@ -19,6 +19,6 @@ class Stats extends Model
 
     public function type() 
     {
-    	return $this->belongsTo(Stat_Type::class);
+    	return $this->belongsTo(Stat_Types::class, 'stat_types_id', 'id');
     }
 }
