@@ -26,16 +26,16 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Team::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->word,
-        'localisation' => $faker->word,
+        'name' => $faker->colorName,
+        'localisation' => $faker->city,
         'admin_id' => $faker->numberBetween(2,800),
     ];
 });
 
 $factory->define(App\League::class, function (Faker\Generator $faker) {
 	return [
-		'name' => $faker->text($maxNbChars = 10),
-		'category' => $faker->word,
+		'name' => $faker->lastName,
+		'category' => $faker->randomLetter,
 	];
 });
 
@@ -44,9 +44,7 @@ $factory->define(App\Season::class, function (Faker\Generator $faker) {
     $start_date;
 
     return [
-        'name' => $faker->word,
-        /*'start_date' => $start_date = Carbon::createFromTimestamp($faker->dateTimeBetween($startDate = '+6 week', $endDate = '+52 week')->getTimeStamp()),
-        'end_date' => Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addDays(180),*/
+        'name' => $faker->firstName,
     ];
 });
 
