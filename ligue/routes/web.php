@@ -1,4 +1,4 @@
-<?php
+ 	<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +70,8 @@ Route::get('/leagues', 'LeagueController@index');
 
 Route::get('/leagues/players/{league_id}/{season_id?}', 'LeagueController@players');
 
+Route::get('/leagues/teams/{league_id}/{season_id?}', 'LeagueController@teams');
+
 // Page de création d'une league
 // Restreint aux rôles : admin
 Route::get('/leagues/create', 'LeagueController@create')->middleware('admin');
@@ -131,7 +133,7 @@ Route::get('/seasons/delete/{season}', 'SeasonController@delete')->middleware('a
 // ************************************ Routes des équipes **************************************
 
 // Présentation d'une équipe
-Route::get('/teams/{team}', 'TeamController@show');
+Route::get('/teams/{team}/{season_id?}', 'TeamController@show');
 
 // Présentation de toutes les équipes
 Route::get('/teams', 'TeamController@index');

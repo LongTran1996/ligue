@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand"><img src = "images/flag.png" style = "height:35px; width:40px; position:relative; top:-10px;"></a>
+        <a class="navbar-brand"><img src = "/images/flag.png" style = "height:35px; width:40px; position:relative; top:-10px;"></a>
       <a class="navbar-brand" href="/">NHL HOCKEY</a>
     </div>
 
@@ -23,7 +23,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
           <ul class="dropdown-menu">
           @foreach ($leagues as $league) 
-            <li><a href="/matchs/{{$league->id}}">League {{ $league->name}}</a></li>
+            <li><a href="/leagues/teams/{{$league->id}}">League {{ $league->name}}</a></li>
           
           @endforeach
           </ul>

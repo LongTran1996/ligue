@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\League;
+use App\Season;
+use App\Player;
+use App\Team;
+use Carbon\Carbon;
 
 class TeamController extends Controller
 {
@@ -15,38 +20,40 @@ class TeamController extends Controller
 
     $teams = Team::All()
     ->get()->where('league_id', $league->id);
-	$seasons = $league->seasons();
+
+	$seasons = $league->seasons;
 
 	foreach ($teams as $team){
 
 
 	foreach ($seasons as $season) {
-	$matchs = $season->matchs();
-	foreach ($matchs as $match) 
+	$matchs = $season->matchs;
+	foreach ($matchs as $match) {
 		if ($match->visitor_team == $team->id){
 			if ($match->winning_team == $match->visitor_team) {
-				$team->wins += 1
+				$team->wins += 1;
 
 			}
 			else {
-				$team->losses += 1
+				$team->losses += 1;
 			}
-		$team->goals += $match->final_score_visitor
+		$team->goals += $match->final_score_visitor;
 
 		}
 		if ($match->local_team == $team->id) {
 			if ($match->winning_team == $match->local_team) {
-				$team->wins += 1
+				$team->wins += 1;
 
 				}
 			else {
-				$team->losses += 1
+				$team->losses += 1;
 			}
 
-		$team->goals += $match->final_score_local
+		$team->goals += $match->final_score_local;
 
 		}
 	}
+}
 
 }
 
@@ -54,19 +61,54 @@ class TeamController extends Controller
 
     
 	}
-		public function team(team $team, $season_id) { 
-			$league = $team->league();
-			$season = $
-   			foreach($stats as $stat){
-   				$type = $stat->type();
-   				if ($type->id == 1 ){
-   				$player->goals += 1;    				
-   			}
-   				if ($type->id == 2) {
-   				$player->assists += 1;
-   				}
-   			}
-		return view('teams.team', compact('team'));
+		public function show(team $team, $season_id = null) { 
+			if ($season_id == null){
+			$date = Carbon::now();
+			dd($team);
+			$league = $team->league;
+			$season = $league->seasons->where('end_date', '=>', $date)->First();
+			if ($season == null) {
+				$season = $league->seasons->First();
+			}
+		
+
+		}
+		
+			else {
+					$league = $team->league;
+					$season = $league->seasons->find($season_id);
+			}
+
+			$matchs = $season->matchs;
+			$seasons = $league->seasons;
+   		foreach ($matchs as $match) {
+		if ($match->visitor_team == $team->id){
+			if ($match->winning_team == $match->visitor_team) {
+				$team->wins += 1;
+
+			}
+			else {
+				$team->losses += 1;
+			}
+		$team->goals += $match->final_score_visitor;
+
+		}
+
+		if ($match->local_team == $team->id) {
+			if ($match->winning_team == $match->local_team) {
+				$team->wins += 1;
+
+				}
+			else {
+				$team->losses += 1;
+			}
+
+		$team->goals += $match->final_score_local;
+
+		}
+	}
+
+		return view('teams.team', compact('team','league'));
 
 	}
 

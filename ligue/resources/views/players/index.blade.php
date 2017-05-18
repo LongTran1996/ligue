@@ -13,37 +13,34 @@
 
   <!--      <div class="row"> -->
 
-        <div class="col-sm-8 blog-main">
-        <table>
-        <th>Name</th>
+        <div class="col-sm-5 blog-main">
+        <table border="1">
+          <th>Name</th>
           <th>Goals</th>
-          <th>Assists</th>
+          <th style="padding-left:50px;">Assists</th>
     @foreach ($players as $player)
             
-   
+    
         <tr>
-        <td><a href="/players/{{$player->id}}">{{ $player->Name}}</a></td>
-        <td>{{ $player->Goals }}</td>
-        <td>{{ $player->Losses }}</td>
+        <td><a href="/players/{{$player->id}}">{{$player->name}}</a></td>
+        <td>{{ $player->goals }}</td>
+        <td style="padding-left:50px;">{{ $player->assists }}</td>
         </tr>
         @endforeach
         </table>
       
-          <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="#">Older</a>
-            <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-          </nav>
 
         </div><!-- /.blog-main --> 
-        <div class="col-sm-4 blog-main">
-        @foreach($leagues as $league) {
-        <ul><a href="/players/{{$league->id}}">League {{$league->name}}</a>
-        @foreach($leagues->seasons as $season){
-        <li><a href="/players/{{$league->id}}/{{$season->id}}">Season {{$season->name}}
-        </li>
-        }
+        <div class="col-sm-7 blog-main">
+        @foreach($leagues as $league) 
+        <ul><a href="/leagues/players/{{$league->id}}" style="color:black;">League {{$league->name}}</a>
+        @foreach($league->seasons as $season)
+        <li><a href="/leagues/players/{{$league->id}}/{{$season->id}}">Season {{$season->name}}
+        </li> 
+        @endforeach
+    
         </ul>
-        }
+        
         @endforeach
         </div>
 
