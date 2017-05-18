@@ -11,8 +11,8 @@ class Season extends Model
     {
     	return $this->belongsTo(League::class);
     }
-            public function matchs()
+        public function matchs()
     {
-    	  return $this->HasMany(Match::class);
+    	return $this->HasMany(Match::class);
     }
 }

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Player;
+use App\Stats;
 
 class PlayerController extends Controller
 {
     //
 	public function index($season_id,$league_id) {
 		$players = new \Illuminate\Database\Eloquent\Collection;
+		$teams = new \Illuminate\Database\Eloquent\Collection;
 
 		if ($season != null) {
 			$season = Season::All()->find($season->id)->get();
@@ -20,8 +23,9 @@ class PlayerController extends Controller
 
 		}
 
-
+		//dd($league->teams());
 		$teams = $league->teams();	
+		
 
 
 		
@@ -53,10 +57,39 @@ class PlayerController extends Controller
 	}
 	
 	public function player(player $player) { 
-		$player = Player::all()->find($id);
-		$stats = $player->stats();
+
+		$stats = $player->stats;
+/*		if ($league_id != null) 
+			if ($season_id != null) {
+			$match = $stat->match->where('season_id',$season_id;)
+
+			} */
+/*			if ($league_id != null) {
+				if ($season_id != null) {
+			
+			$season = Season::find($season_id);
+			$stats = $season->
+
+			}
+			else {
+
+				$league = League::find($league_id);
+				$seasons  = $league->seasons;
+
+				foreach($season as )
+				$matchs = $seasons->matchs;
+				$stats = $matchs->stats->where('player_id', $player->id);
+			}
+	
+		}*/
+	
+
+
+
 		foreach($stats as $stat){
-			$type = $stat->type();
+	
+			$type = $stat->type;
+	
 			if ($type->id == 1 ){
 				$player->goals += 1;    				
 			}
@@ -64,6 +97,18 @@ class PlayerController extends Controller
 				$player->assists += 1;
 			}
 		}
+
+					if ($player->goals == 0) {
+						$player->goals = 0; 
+					}
+					if ($player->assists == 0) {
+						$player->assists = 0; 
+					}
+
+
+
+			
+		
 		return view('players.player', compact('player'));
 
 	}
@@ -102,10 +147,29 @@ class PlayerController extends Controller
 		return redirect()->route('leagues');
 
 	}
-	public function show(league $league)
+	public function show(player $player)
 	{
-		return view('leagues.show', compact('league'));
-		
+
+	
+		$stats = $player->stats;
+		foreach($stats as $stat){
+			$type = $stat->type;
+			if ($type->id == 1 ){
+				$player->goals += 1;    				
+			}
+			if ($type->id == 2) {
+				$player->assists += 1;
+			}
+
+
+		}
+		if ($player->goals == 0) {
+						$player->goals = 0; 
+					}
+					if ($player->assists == 0) {
+						$player->assists = 0; 
+					}
+		return view('players.player', compact('player'));
 
 	}
 
